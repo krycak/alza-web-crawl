@@ -1,0 +1,32 @@
+
+import requests
+from bs4 import BeautifulSoup
+import sys 
+
+#page = requests.get('https://www.alza.cz/mobily/18843445.htm')
+
+with open("/home/toor/cisco/text_analyzer/prices.html") as fp:
+    soup = BeautifulSoup(fp, 'html.parser')
+
+inzeraty = soup.find_all(class_="box browsingitem js-box canBuy inStockAvailability first firstRow") 
+
+pozice = 0
+
+for tag in inzeraty:
+    print(pozice)
+
+    nadpis = soup.find(class_='browsingitemcontainer')
+    nadpis_plain = nadpis.get_text().strip()
+    print(nadpis_plain)
+
+    popis = soup.find(class_='Description')
+    popis_plain = popis.get_text().strip()
+    print(popis_plain)
+
+    cena = soup.find(class_='price-box__price')
+    cena_plain = cena.get_text().strip()
+    print(cena_plain)
+    pozice += 1
+    
+sys.exit()
+
